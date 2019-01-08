@@ -6,6 +6,7 @@ This README would normally document whatever steps are necessary to get your app
 
 * This repo will contain my study and learning which are related to the linux driver development
 * 1.0
+* Some code is not optimized but functionality wise everything is fine.
 
 ### How do I get set up? ###
 
