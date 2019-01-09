@@ -12,9 +12,11 @@ Test:
 
 
 
-Static Allocation
------------------
+Dynamic Registration of the major and minor numbers and inode creation
+---------------------------------------------------
+
 Used APIs for registration
+--------------------------
 
 	//Aquire the major and minor number dynamically
 	alloc_chrdev_region(&uni_dev, 0, count, DEV_NAME);
@@ -34,6 +36,7 @@ Used APIs for registration
 
 
 Used APIs for de-registration
+-----------------------------
 
 	//Remove the device and device class
 	device_destroy(uni_class, uni_dev);

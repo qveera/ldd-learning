@@ -4,7 +4,7 @@ Implementation Steps:
 1) Writing and Insert the driver module which will aquire the major and minor numbers and registers chardev with vfs
 2) Finding out what major and minor numbers were aquired
 	cat /proc/devices
-3) Create mknod using the dynamic majore and minor numbers
+3) Create mknod using the dynamic major and minor numbers
 
 Test:
 -----
@@ -13,9 +13,11 @@ Test:
 
 
 
-Static Allocation
------------------
+
+Dynamic Registration of the major and minor numbers
+---------------------------------------------------
 Used APIs for registration
+---------------------------
 
 	//Aquire the major and minor number dynamically
 	alloc_chrdev_region(&uni_dev, 0, count, DEV_NAME);
@@ -31,6 +33,7 @@ Used APIs for registration
 
 
 Used APIs for de-registration
+---------------------------
 
 	//Delete the char dev
 	cdev_del(uni_cdev);
