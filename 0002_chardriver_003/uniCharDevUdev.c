@@ -36,7 +36,7 @@ int uni_open(struct inode *inode, struct file *file) {
 	{
 		printk(KERN_INFO "%s[%d]: Device busy %s\n",__func__,__LINE__,DEV_NAME);
 		return -EBUSY;
-	}	
+	}
 	inuse=1;
 	printk(KERN_INFO "%s[%d]: Open operation invoked\n",__func__,__LINE__);
 	return SUCCESS;
@@ -61,19 +61,19 @@ static int __init uni_char_dev_init(void) {
 
 	//Aquire the major and minor number dynamically
 	if(alloc_chrdev_region(&uni_dev, 0, count, DEV_NAME) < 0) {
-            printk (KERN_ERR "%s[%d]: Failed to reserve major/minor range\n",__func__,__LINE__);
-            return -1;
-    }
+		printk (KERN_ERR "%s[%d]: Failed to reserve major/minor range\n",__func__,__LINE__);
+		return -1;
+	}
 
-        if(!(uni_cdev = cdev_alloc())) {
-            printk (KERN_ERR "%s[%d]: cdev_alloc() failed\n",__func__,__LINE__);
-            unregister_chrdev_region(uni_dev, count);
-            return -1;
- 	}
-	
+	if(!(uni_cdev = cdev_alloc())) {
+		printk (KERN_ERR "%s[%d]: cdev_alloc() failed\n",__func__,__LINE__);
+		unregister_chrdev_region(uni_dev, count);
+		return -1;
+	}
+
 	//Initialize the cdev
 	cdev_init(uni_cdev, &uni_char_dev_fops);
-	
+
 	//Add the cdev to the vfs
 	ret = cdev_add(uni_cdev, uni_dev, count);
 	if(ret < 0) {
@@ -85,8 +85,8 @@ static int __init uni_char_dev_init(void) {
 
 	//Create the class and device
 	uni_class = class_create(THIS_MODULE, "UNI_VIRTUAL");
-    device_create(uni_class, NULL, uni_dev, NULL, "%s", DEV_NAME);
-	
+	device_create(uni_class, NULL, uni_dev, NULL, "%s", DEV_NAME);
+
 	//Memory ALlocation
 	char_device_buf = (char *)kmalloc(MAX_LENGTH,GFP_KERNEL);
 	return 0;
@@ -96,7 +96,7 @@ static void __exit  uni_char_dev_exit(void) {
 
 	//Remove the device and device class
 	device_destroy(uni_class, uni_dev);
-    class_destroy(uni_class);
+	class_destroy(uni_class);
 
 	//Delete the char dev
 	cdev_del(uni_cdev);
