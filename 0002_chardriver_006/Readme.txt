@@ -5,3 +5,5 @@ thoese methods here.
 
 1)semaphore: This contains how we  can implement the above scenario using the
 semaphores.
+2)complete: This contains how we can implement the above scenario using the
+complete api
