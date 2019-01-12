@@ -7,3 +7,5 @@ thoese methods here.
 semaphores.
 2)complete: This contains how we can implement the above scenario using the
 complete api
+3) Wait Queue: This contains how we can use the wait queue to implement the above
+scenario using the wait API
