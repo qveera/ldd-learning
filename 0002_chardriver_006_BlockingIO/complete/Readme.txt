@@ -7,10 +7,6 @@ Implementation Steps:
    The driver should also Implemente ioctl.
 	cat /proc/devices
 
-NOTE: semaphore are no more in kernl, they were replaced by mutex
-If you want to run this use the old kernel 2.6
-*I did not tested this*
-
 complete API:
 -----------
 1) Inlcude the header file
