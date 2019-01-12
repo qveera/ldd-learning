@@ -15,7 +15,7 @@ complete API:
 -----------
 1) Inlcude the header file
 #include <linux/completion.h>
-2) Declare a semaphore
+2) Declare a completion struct
 static DECLARE_COMPLETION(uni_complete);
 3) In read wait for the complete
 wait_for_completion(&uni_complete);
