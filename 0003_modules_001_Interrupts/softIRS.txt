@@ -1,0 +1,64 @@
+SoftIRQs:
+---------
+1) Stattically allocated at the compile time ie only availabe for static moduels
+2) Maximum of 32 SoftIRQs are supported
+3) SoftIRQs run with preemption disabled and interrutps enabled
+4) Activating a SoftIRQ
+    - Register SoftIRQ with open_softirq()
+    - Raise SoftIRQ with raise_softirq()
+5) Executing a SoftIRQ
+    - Return from Hardware interrutp code
+    - By the ksoftirqd thread
+    - code that explicitly checks and executes SoftIRQs
+
+
+Refer $KERNEL_SOURCE_CODE/include/linux/interrupt.h
+
+softirq enums:
+-------------
+/* PLEASE, avoid to allocate new softirqs, if you need not _really_ high
+   frequency threaded job scheduling. For almost all the purposes
+   tasklets are more than enough. F.e. all serial device BHs et
+   al. should be converted to tasklets, not to softirqs.
+ */
+
+enum
+{
+	HI_SOFTIRQ=0,
+	TIMER_SOFTIRQ,
+	NET_TX_SOFTIRQ,
+	NET_RX_SOFTIRQ,
+	BLOCK_SOFTIRQ,
+	IRQ_POLL_SOFTIRQ,
+	TASKLET_SOFTIRQ,
+	SCHED_SOFTIRQ,
+	HRTIMER_SOFTIRQ, /* Unused, but kept as tools rely on the
+			    numbering. Sigh! */
+	RCU_SOFTIRQ,    /* Preferable RCU should always be the last softirq */
+
+	NR_SOFTIRQS
+};
+
+Each entry in the above enum is a softirq. Each softirq is an instance of the structure called softirq_action
+
+
+Implementation:
+--------------
+1) Add an entry in the above enum
+2) Use that entry and register the ISR
+    open_softirq(MY_SOFTIRQ_ENUM, uniSoftIRQFunc);
+3) In ISR call raise_softirq(MY_SOFTIRQ_ENUM);
+
+Few more notes:
+--------------
+1) When raise_softirq is get called, the specified softirq is enqueued to the list of the
+pending SoftIRQs(per cpu)
+
+2) Pending SoftIRQs list is cleared by do_irq routine immediately after ISR terminates with interrupt lines enabled
+
+3) SoftIRQs may run in ksoftirq process context(per cpu)
+
+4) SoftIRQs are concurrent ie the same SoftIRQs can run in n CPUs parallelly.
+While Implementing SoftIRQs mutual exclusion locks are mandatory wherever needed.
+
+5) Using locks in interrupt context code will result in variable time interrupt latency.
