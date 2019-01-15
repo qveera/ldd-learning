@@ -60,3 +60,7 @@ struct tasklet_struct
 	void (*func)(unsigned long);
 	unsigned long data;
 };
+
+Links:
+https://www.ibm.com/developerworks/library/l-tasklets/index.html
+https://notes.shichao.io/lkd/ch8/

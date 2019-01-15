@@ -19,7 +19,7 @@ static atomic_t data_ready; //This is for the condition in wait_event
 wait_event_interruptible(uni_waitQ, atomic_read(&data_ready));
 atomic_set(&data_ready, 0); //Reset the data_ready so that another process dont wake up
 4) In write wake up the readers by wake up and setting the condition
-wake_up_interrup(&uni_complete);
+wake_up_interruptible(&uni_waitQ);
 
 Test:
 -----

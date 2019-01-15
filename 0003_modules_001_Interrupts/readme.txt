@@ -87,3 +87,7 @@ Tips:
 2) Consider using DMA whenever data needs to be transferred between device memory
 3) Consider using per cpu data whenever needed
 4) Identify non critical work and use appropriate deffered routines to execute when system is ideal
+
+Links:
+https://www.ibm.com/developerworks/library/l-tasklets/index.html
+https://notes.shichao.io/lkd/ch8/
