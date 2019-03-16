@@ -2,9 +2,14 @@
 #include <linux/module.h> 	//Kmod interface
 #include <linux/version.h>	//kernel version stamp
 #include <linux/kernel.h>	//Resolve kernel symbol calls
-#include <linux/init.h>		//
+#include <linux/init.h>		//Provides the inline fuctions
 
 
+int uniVar = 555;
+
+void uniFunc() {
+	printk("%s[%d] uniVar = %d \n",__func__,__LINE__,uniVar);
+}
 
 static int __init uniInit(void) {
 	printk("%s[%d]\n",__func__,__LINE__);
