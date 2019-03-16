@@ -7,12 +7,13 @@
 
 int uniVar = 555;
 
-void uniFunc() {
+void uniFunc(void) {
 	printk("%s[%d] uniVar = %d \n",__func__,__LINE__,uniVar);
 }
 
 static int __init uniInit(void) {
 	printk("%s[%d]\n",__func__,__LINE__);
+	uniFunc();
 	return 0;
 }
 
